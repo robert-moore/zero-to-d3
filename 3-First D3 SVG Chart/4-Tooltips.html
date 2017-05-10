@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../d3.v4.min.js"></script>
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script>
+
+    var temperatures = [58, 67, 64, 72, 81, 50, 56];
+
+    var height = 300;
+    var width = 800;
+
+    var xScale = d3.scaleLinear()
+        .domain([0, d3.max(temperatures)])
+        .range([0, width]);
+
+    var barHeight = height / temperatures.length;
+    var barSpacing = 5;
+
+    var color = 'lightcoral';
+
+    var svg = d3.select('#chart').append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    var rect = svg.selectAll('rect')
+        .data(temperatures)
+        .enter()
+        .append('rect')
+        .attr('width', function(d) { return xScale(d) })
+        .attr('height', barHeight - barSpacing)
+        .attr('y', function(d, i) { return i * barHeight })
+        .attr('fill', color);
+
+    rect.append('title')
+        .text(function(d) { return d + 'F' ; }
+
+    // important things here
+    // bars holds the entire selection
+    // data is inherited from the parent to the child
+    // once again the selection is passed down on append
+    // as opposed to style, attr, where the selection remains the same
+    // mention new namespacing of d3 v4
+
+
+</script>
+</body>
+</html>

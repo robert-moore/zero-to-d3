@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../d3.v4.min.js"></script>
+<style>
+    div {
+        background-color: lightcoral;
+        display: inline-block;
+        width: 30px;
+        margin: 2px;
+    }
+</style>
+</head>
+
+<body>
+
+<script>
+
+    var dailyTemperatures = [58, 67, 64, 72, 81, 50, 56];
+
+    var body = d3.select('body');
+
+    body.selectAll('div')
+        .data(dailyTemperatures)
+        .enter()
+        .append('div')
+        .style('height', function(d) { return d*3 + 'px'; });
+
+
+</script>
+</body>
+</html>

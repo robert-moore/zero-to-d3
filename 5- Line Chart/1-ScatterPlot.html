@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../d3.v4.min.js"></script>
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script>
+
+    var temperatures = [58, 67, 64, 72, 81, 50, 56, 52, 57, 90];
+
+    var height = 400;
+    var width = 400;
+    var padding = { left: 50, bottom: 50, top:20, right: 50};
+
+    var spacing = width / temperatures.length;
+
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(temperatures)])
+        .range([height, 0]);
+
+    var color = 'lightcoral';
+
+    var svg = d3.select('#chart').append('svg')
+        .attr('width', width + padding.left + padding.right)
+        .attr('height', height + padding.bottom + padding.top);
+
+    var g = svg.append('g')
+        .attr('transform', 'translate(' + padding.left + ', ' + padding.top + ')'); // <g transform="translate(50, 0)" >
+
+    var points = g.selectAll('circle.point')
+        .data(temperatures)
+        .enter()
+        .append('circle')
+        .attr('cx', function(d, i) { return (i + 1) * spacing; })
+        .attr('cy', function(d, i) { return yScale(d); })
+        .attr('r', 5)
+        .attr('fill', color);
+
+    points.append('title')
+        .text(function(d) { return d + 'F'; });
+
+    var yAxis = d3.axisLeft(yScale);
+
+    g.append("g")
+        .call(yAxis);
+
+    g.append('line')
+        .attr('stroke', 'black')
+        .attr('x1', 0)
+        .attr('x2', width)
+        .attr('y1', height)
+        .attr('y2', height)
+
+</script>
+</body>
+</html>

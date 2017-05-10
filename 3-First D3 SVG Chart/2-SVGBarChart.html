@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../d3.v4.min.js"></script>
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script>
+
+    var temperatures = [58, 67, 64, 72, 81, 50, 56];
+
+    var svg = d3.select('#chart').append('svg')
+        .attr('width', 1200)
+        .attr('height', 1080);
+
+    svg.selectAll('rect')
+        .data(temperatures)
+        .enter()
+        .append('rect')
+        .attr('width', function(d) { return d*10 })
+        .attr('height', 50)
+        .attr('y', function(d, i) { return i*52 })
+        .attr('fill', 'lightcoral');
+
+</script>
+</body>
+</html>

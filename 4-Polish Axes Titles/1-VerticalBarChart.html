@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../d3.v4.min.js"></script>
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script>
+
+    var temperatures = [58, 67, 64, 72, 81, 50, 56];
+
+    var height = 400;
+    var width = 400;
+
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(temperatures)])
+        .range([0, height]);
+
+    var barWidth = width / temperatures.length;
+    var barSpacing = 5;
+
+    var color = 'lightcoral';
+
+    var svg = d3.select('#chart').append('svg')
+        .attr('width', width)
+        .attr('height', height);
+
+    svg.selectAll('rect')
+        .data(temperatures)
+        .enter()
+        .append('rect')
+        .attr('width', barWidth - barSpacing )
+        .attr('height', function(d) { return yScale(d); } )
+        .attr('x', function(d, i) { return i * barWidth })
+        .attr('fill', color);
+
+    // more height to work with and less width
+    // our values will be scaled on the y axis
+    // instead of having a barHeight, we'll have a barWidth
+    // our width will be fixed
+
+</script>
+</body>
+</html>

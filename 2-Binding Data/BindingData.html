@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../d3.v4.min.js"></script>
+</head>
+
+<body>
+
+<script>
+
+    var temperatures = [58, 67, 64, 72, 81, 50, 56];
+
+    var body = d3.select('body');
+
+    body.selectAll('p')
+        .data(temperatures)
+        .enter()
+        .append('p')
+        .text('Paragraph text');
+
+    body.html('');
+
+    body.selectAll('p')
+        .data(temperatures)
+        .enter()
+        .append('p')
+        .text(function(d, i) { return "The high temperature on day " + i + " was " + d + " degrees"});
+        //.text(function(penguin, igloo) { return "The high temperature on day " + igloo + " was " + penguin + " degrees"});
+
+    // inspect the div element to show data bound
+
+</script>
+</body>
+</html>

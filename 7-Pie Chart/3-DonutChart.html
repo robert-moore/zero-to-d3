@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="../d3.v4.min.js"></script>
+    <script src="../6-MovieRatings/data/movieRatings.js"></script>
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script>
+
+    var colors = ['#364F9C', '#5872C1', '#829AE4', '#267DB8', '#52A0D4', '#78BDEB'];
+
+    var color = ['#3E50AF', '#577EE5', '#67AFFA', '#267DB8', '#52A0D4', '#78BDEB'];
+
+
+
+    var favoriteSports = [
+        { sport: "Football", count: 26},
+        { sport: "Basketball", count: 17},
+        { sport: "Hockey", count: 16},
+        { sport: "Underwater Hockey", count: 14},
+        { sport: "Chess Boxing", count: 12},
+        { sport: "Cheese Rolling", count: 8}
+    ];
+
+    var height = 500;
+    var width = 500;
+    var radius = Math.min(height, width) / 2;
+
+    var svg = d3.select('#chart').append('svg')
+        .attr('height', height)
+        .attr('width', width);
+
+    var g = svg.append('g')
+        .attr('transform', "translate(" + width / 2 + "," + height / 2 + ")");
+
+    //Compute the necessary angles to represent a tabular dataset as a pie or donut chart.
+    var pie = d3.pie()
+        .sort(null)
+        .value(function(d) { return d.count; })
+        .padAngle(0.02);
+
+    //Circular or annular sectors, as in a pie or donut chart.
+    var arc = d3.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(150);
+
+//    console.log(pie(favoriteSports));
+
+    var path = g.selectAll("path")
+        .data(pie(favoriteSports))
+        .enter()
+        .append("path")
+        .attr("d", arc)
+        .attr("fill", function(d, i) { return color[i]; });
+
+    path.append('title')
+        .text(function(d) { return d.data.sport + ' | ' + d.data.count + ' votes'; })
+
+</script>
+</body>
+</html>
